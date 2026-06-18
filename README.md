@@ -93,8 +93,9 @@ single moment a piece seals.
 
 ```ini
 live      = https://jacksanderman.github.io/whetstone/
-contract  = TBD-by-parent
+contract  = 0x7C077de2eAE9a6ac9c6F6088b7cD1eCddE63C293
 network   = GenLayer Bradbury Testnet (chainId 4221 / 0x107D)
-explorer  = https://explorer-bradbury.genlayer.com
+explorer  = https://explorer-bradbury.genlayer.com/address/0x7C077de2eAE9a6ac9c6F6088b7cD1eCddE63C293
+deploy_tx = 0xb0c2e6dc7ea9c8d34470a3c6b299d2f68c26d29f85d0a97d4a66ea35faadf496
 faucet    = https://testnet-faucet.genlayer.foundation/
 ```
