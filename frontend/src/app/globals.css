@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* honing-bench, industrial precision dark */
+  --bg: #0a0b0d;            /* deep machined black */
+  --machined: #101216;      /* machined surface, slightly lighter */
+  --raised: #14171c;        /* raised tool surface */
+  --groove: #1a1e24;        /* grooved inset */
+  --hone: #4cc2ff;          /* whetstone blue, live honing */
+  --hone-deep: #2a86c4;
+  --spark: #ffb020;         /* amber spark, RESERVED for the seal moment */
+  --steel: #b7c0cc;         /* bright steel text */
+  --chalk: #e8edf3;         /* chalk-white, top text level */
+  --ash: #7e8896;           /* ash, secondary text */
+  --faint: #4d5662;         /* faint, tertiary text */
+  --hairline: rgba(183, 192, 204, 0.12);
+  --hairline-strong: rgba(183, 192, 204, 0.26);
+
+  --font-display: 'Big Shoulders Display', 'Arial Black', sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --rail-w: 78px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--steel);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* fine machined grain, no aurora washes */
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(76, 194, 255, 0.04), transparent 36%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(76, 194, 255, 0.3);
+  color: #fff;
+}
+
+/* ---- typography ---------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.005em;
+  margin: 0;
+  color: var(--chalk);
+  text-transform: uppercase;
+}
+
+.numeral {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  font-weight: 700;
+  line-height: 0.84;
+}
+
+.figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.6rem;
+  color: var(--ash);
+}
+
+.stencil {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---- machined surfaces + hairlines -------------------------------------- */
+
+.hairline {
+  border-color: var(--hairline);
+}
+
+.machined {
+  background: var(--machined);
+  border: 1px solid var(--hairline);
+}
+
+.raised {
+  background:
+    linear-gradient(180deg, rgba(183, 192, 204, 0.03), transparent 26%),
+    var(--raised);
+  border: 1px solid var(--hairline);
+}
+
+.inset {
+  background: var(--groove);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(183, 192, 204, 0.04);
+}
+
+.bevel {
+  box-shadow:
+    inset 0 1px 0 rgba(183, 192, 204, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 18px 40px -30px rgba(0, 0, 0, 0.9);
+}
+
+/* hairline rule with machined fade */
+.rule-machined {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--hairline-strong) 10%,
+    var(--hairline-strong) 90%,
+    transparent
+  );
+}
+
+/* the vertical seal-bar spine behind the giant numeral */
+.spine {
+  background: linear-gradient(
+    180deg,
+    rgba(183, 192, 204, 0.02),
+    rgba(183, 192, 204, 0.08)
+  );
+  border-left: 1px solid var(--hairline);
+  border-right: 1px solid var(--hairline);
+}
+
+/* ---- focus + accessibility ---------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--hone);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--hone);
+  color: #04121c;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  z-index: 200;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* ---- scrollbars ---------------------------------------------------------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(183, 192, 204, 0.2) transparent;
+}
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(183, 192, 204, 0.2);
+  border-radius: 999px;
+}
+
+/* ---- kinetic + motion ---------------------------------------------------- */
+
+@keyframes grind {
+  0%, 100% { opacity: 0.35; transform: scaleX(0.6); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes seal-stamp {
+  0% { transform: scale(2.4) rotate(-14deg); opacity: 0; }
+  55% { transform: scale(0.9) rotate(-9deg); opacity: 1; }
+  72% { transform: scale(1.06) rotate(-9deg); }
+  100% { transform: scale(1) rotate(-9deg); opacity: 1; }
+}
+
+@keyframes spark-ring {
+  0% { box-shadow: 0 0 0 0 rgba(255, 176, 32, 0); }
+  35% { box-shadow: 0 0 0 3px rgba(255, 176, 32, 0.7), 0 0 44px rgba(255, 176, 32, 0.4); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 176, 32, 0); }
+}
+
+@keyframes climb-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+.grind {
+  animation: grind 1.1s ease-in-out infinite;
+}
+.seal-stamp {
+  animation: seal-stamp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.spark-ring {
+  animation: spark-ring 1.2s ease-out;
+}
+.climb-in {
+  animation: climb-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.pulse-soft {
+  animation: pulse-soft 1.7s ease-in-out infinite;
+}
+
+/* shimmering skeleton */
+@keyframes shimmer {
+  0% { background-position: -480px 0; }
+  100% { background-position: 480px 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(183, 192, 204, 0.04) 25%,
+    rgba(183, 192, 204, 0.1) 37%,
+    rgba(183, 192, 204, 0.04) 63%
+  );
+  background-size: 960px 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- helpers ------------------------------------------------------------- */
+
+a {
+  color: inherit;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
